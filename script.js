@@ -3,200 +3,315 @@
    SCRIPT.JS
 ========================================== */
 
-/* =========================
+/* -----------------------------
+   HERO TITLE REVEAL
+----------------------------- */
+
+window.addEventListener("load", () => {
+
+  const titleLines =
+    document.querySelectorAll(".hero-title span");
+
+  titleLines.forEach((line, index) => {
+
+    line.style.opacity = "0";
+    line.style.transform = "translateY(80px)";
+
+    setTimeout(() => {
+
+      line.style.transition =
+        "all 0.8s cubic-bezier(.22,.61,.36,1)";
+
+      line.style.opacity = "1";
+      line.style.transform =
+        "translateY(0px)";
+
+    }, index * 150);
+
+  });
+
+});
+
+
+/* -----------------------------
    SCROLL REVEAL
-========================= */
+----------------------------- */
 
-const revealElements = document.querySelectorAll(".reveal");
+const observer =
+new IntersectionObserver((entries)=>{
 
-const revealObserver = new IntersectionObserver(
-
-(entries) => {
-
-entries.forEach(entry => {
+entries.forEach(entry=>{
 
 if(entry.isIntersecting){
 
-entry.target.classList.add("active");
+entry.target.classList.add("show");
 
 }
 
 });
 
-},
-
-{
+},{
 threshold:0.15
-}
+});
 
-);
+document.querySelectorAll(
+".about-card,.projects-header,.project-card,.stat-card,.contact-card"
+).forEach(el=>{
 
-revealElements.forEach(el => {
-revealObserver.observe(el);
+el.classList.add("hidden");
+observer.observe(el);
+
 });
 
 
-/* =========================
+/* -----------------------------
    COUNTER ANIMATION
-========================= */
+----------------------------- */
 
-const counters = document.querySelectorAll(".counter");
+const statNumbers =
+document.querySelectorAll(".stat-card h2");
 
-const counterObserver = new IntersectionObserver(
-
-(entries)=>{
+const statObserver =
+new IntersectionObserver((entries)=>{
 
 entries.forEach(entry=>{
 
 if(!entry.isIntersecting) return;
 
-const counter = entry.target;
+const el = entry.target;
 
-const target = +counter.dataset.target;
+const text =
+el.textContent;
+
+if(text.includes("+")){
+
+const target =
+parseInt(text);
 
 let current = 0;
 
-const increment = target / 80;
+const step =
+target / 60;
 
-const updateCounter = () => {
+function update(){
+
+current += step;
 
 if(current < target){
 
-current += increment;
+el.textContent =
+Math.floor(current) + "+";
 
-counter.innerText = Math.ceil(current) + "+";
-
-requestAnimationFrame(updateCounter);
+requestAnimationFrame(update);
 
 }else{
 
-counter.innerText = target + "+";
+el.textContent =
+target + "+";
 
 }
 
-};
+}
 
-updateCounter();
+update();
 
-counterObserver.unobserve(counter);
+}
+
+statObserver.unobserve(el);
 
 });
 
-},
-
-{
+},{
 threshold:0.5
-}
+});
 
-);
-
-counters.forEach(counter=>{
-counterObserver.observe(counter);
+statNumbers.forEach(item=>{
+statObserver.observe(item);
 });
 
 
-/* =========================
-   HERO PARALLAX
-========================= */
+/* -----------------------------
+   HERO IMAGE PARALLAX
+----------------------------- */
 
-const hero = document.querySelector(".hero");
-const pfp = document.querySelector(".pfp-wrapper");
+const hero =
+document.querySelector(".hero");
 
-if(hero && pfp){
+const image =
+document.querySelector(".hero-image");
+
+if(hero && image){
 
 hero.addEventListener("mousemove",(e)=>{
 
-const rect = hero.getBoundingClientRect();
+const rect =
+hero.getBoundingClientRect();
 
-const x = e.clientX - rect.left;
-const y = e.clientY - rect.top;
+const x =
+e.clientX - rect.left;
 
-const rotateY = ((x / rect.width) - 0.5) * 10;
-const rotateX = ((y / rect.height) - 0.5) * -10;
+const y =
+e.clientY - rect.top;
 
-pfp.style.transform = `
-perspective(1000px)
+const rotateY =
+((x / rect.width)-0.5)*10;
+
+const rotateX =
+((y / rect.height)-0.5)*-10;
+
+image.style.transform = `
+scale(1.05)
 rotateX(${rotateX}deg)
 rotateY(${rotateY}deg)
-translateY(-10px)
 `;
 
 });
 
 hero.addEventListener("mouseleave",()=>{
 
-pfp.style.transform = `
-perspective(1000px)
-rotateX(0deg)
-rotateY(0deg)
-translateY(0px)
-`;
+image.style.transform =
+"scale(1)";
 
 });
 
 }
 
 
-/* =========================
-   PROJECT CARD HOVER
-========================= */
+/* -----------------------------
+   PROJECT HOVER EFFECT
+----------------------------- */
 
-const projects = document.querySelectorAll(".project-card");
+document
+.querySelectorAll(".project-card")
+.forEach(card=>{
 
-projects.forEach(card=>{
+card.addEventListener(
+"mousemove",
+(e)=>{
 
-card.addEventListener("mousemove",(e)=>{
+const rect =
+card.getBoundingClientRect();
 
-const rect = card.getBoundingClientRect();
+const x =
+e.clientX - rect.left;
 
-const x = e.clientX - rect.left;
-const y = e.clientY - rect.top;
+const y =
+e.clientY - rect.top;
 
-const rotateY = ((x / rect.width) - 0.5) * 8;
-const rotateX = ((y / rect.height) - 0.5) * -8;
+const rotateY =
+((x/rect.width)-0.5)*8;
 
-card.style.transform = `
-perspective(1000px)
+const rotateX =
+((y/rect.height)-0.5)*-8;
+
+card.style.transform =
+`perspective(1000px)
 rotateX(${rotateX}deg)
 rotateY(${rotateY}deg)
-translateY(-12px)
-`;
+translateY(-10px)`;
 
 });
 
-card.addEventListener("mouseleave",()=>{
+card.addEventListener(
+"mouseleave",
+()=>{
 
-card.style.transform = `
-perspective(1000px)
-rotateX(0deg)
-rotateY(0deg)
-translateY(0px)
-`;
+card.style.transform =
+"translateY(0px)";
 
 });
 
 });
 
 
-/* =========================
-   SMOOTH NAVIGATION
-========================= */
+/* -----------------------------
+   CURSOR GLOW
+----------------------------- */
 
-document.querySelectorAll('a[href^="#"]').forEach(anchor=>{
+const glow =
+document.createElement("div");
 
-anchor.addEventListener("click",function(e){
+glow.classList.add(
+"cursor-glow"
+);
+
+document.body.appendChild(glow);
+
+Object.assign(
+glow.style,
+{
+position:"fixed",
+width:"220px",
+height:"220px",
+borderRadius:"50%",
+background:
+"rgba(255,255,255,.25)",
+filter:"blur(80px)",
+pointerEvents:"none",
+zIndex:"9999",
+transform:
+"translate(-50%,-50%)"
+}
+);
+
+window.addEventListener(
+"mousemove",
+(e)=>{
+
+glow.style.left =
+e.clientX + "px";
+
+glow.style.top =
+e.clientY + "px";
+
+}
+);
+
+
+/* -----------------------------
+   TICKER DUPLICATE
+----------------------------- */
+
+const ticker =
+document.querySelector(
+".ticker-track"
+);
+
+if(ticker){
+
+ticker.innerHTML +=
+ticker.innerHTML;
+
+}
+
+
+/* -----------------------------
+   SMOOTH SCROLL
+----------------------------- */
+
+document
+.querySelectorAll(
+'a[href^="#"]'
+)
+.forEach(anchor=>{
+
+anchor.addEventListener(
+"click",
+function(e){
 
 e.preventDefault();
 
-const target = document.querySelector(
+const target =
+document.querySelector(
 this.getAttribute("href")
 );
 
 if(target){
 
 target.scrollIntoView({
-behavior:"smooth",
-block:"start"
+
+behavior:"smooth"
+
 });
 
 }
@@ -206,158 +321,50 @@ block:"start"
 });
 
 
-/* =========================
-   FLOATING GRADIENTS
-========================= */
+/* -----------------------------
+   ADD CSS FOR REVEAL
+----------------------------- */
 
-const gradients = document.querySelectorAll(".gradient");
+const style =
+document.createElement("style");
 
-window.addEventListener("mousemove",(e)=>{
+style.innerHTML = `
 
-const x = e.clientX / window.innerWidth;
-const y = e.clientY / window.innerHeight;
+.hidden{
+opacity:0;
+transform:translateY(60px);
+transition:
+all .8s ease;
+}
 
-gradients.forEach((blob,index)=>{
+.show{
+opacity:1;
+transform:translateY(0);
+}
 
-const speed = (index + 1) * 20;
-
-blob.style.transform = `
-translate(
-${(x - 0.5) * speed}px,
-${(y - 0.5) * speed}px
-)
 `;
 
-});
-
-});
+document.head.appendChild(style);
 
 
-/* =========================
-   HERO TITLE STAGGER
-========================= */
-
-window.addEventListener("load",()=>{
-
-const titleLines =
-document.querySelectorAll(".hero-title span");
-
-titleLines.forEach((line,index)=>{
-
-line.style.animationDelay =
-`${index * 0.15}s`;
-
-});
-
-});
-
-
-/* =========================
-   ORBITAL ROTATION
-========================= */
-
-const orbital =
-document.querySelector(".orbital");
-
-if(orbital){
-
-let rotation = 0;
-
-function animateOrbital(){
-
-rotation += 0.15;
-
-orbital.style.transform =
-`rotate(${rotation}deg)`;
-
-requestAnimationFrame(
-animateOrbital
-);
-
-}
-
-animateOrbital();
-
-}
-
-
-/* =========================
-   CUSTOM CURSOR GLOW
-========================= */
-
-const glow = document.createElement("div");
-
-glow.classList.add("cursor-glow");
-
-document.body.appendChild(glow);
-
-Object.assign(glow.style,{
-
-position:"fixed",
-width:"250px",
-height:"250px",
-borderRadius:"50%",
-background:"rgba(255,255,255,.25)",
-filter:"blur(70px)",
-pointerEvents:"none",
-zIndex:"9999",
-transform:"translate(-50%, -50%)",
-transition:"transform .05s linear"
-
-});
-
-window.addEventListener("mousemove",(e)=>{
-
-glow.style.left = e.clientX + "px";
-glow.style.top = e.clientY + "px";
-
-});
-
-
-/* =========================
-   PAGE LOADER
-========================= */
-
-window.addEventListener("load",()=>{
-
-document.body.style.opacity = "0";
-
-setTimeout(()=>{
-
-document.body.style.transition =
-"opacity .8s ease";
-
-document.body.style.opacity = "1";
-
-},100);
-
-});
-
-
-/* =========================
-   TICKER DUPLICATION
-========================= */
-
-const tickerTrack =
-document.querySelector(".ticker-track");
-
-if(tickerTrack){
-
-tickerTrack.innerHTML +=
-tickerTrack.innerHTML;
-
-}
-
-
-/* =========================
-   CONSOLE EASTER EGG
-========================= */
+/* -----------------------------
+   CONSOLE SIGNATURE
+----------------------------- */
 
 console.log(`
-━━━━━━━━━━━━━━━━━━━━━━━
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━
+
 Tanvir Mohammad Iqbal
+
 Web3 Researcher
 On-chain Builder
 Content Creator
-━━━━━━━━━━━━━━━━━━━━━━━
-`);
+
+100+ Protocol Campaigns
+40+ Blockchain Networks
+3+ Years in Web3
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+
