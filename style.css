@@ -20,9 +20,7 @@ line-height:1.7;
 }
 
 a{text-decoration:none;color:inherit;}
-img{max-width:100%;display:block;}
-
-/* NAVBAR */
+img{display:block;max-width:100%;}
 
 .navbar{
 position:sticky;
@@ -31,18 +29,14 @@ z-index:999;
 max-width:1100px;
 margin:0 auto 24px;
 padding:12px 20px;
-background:var(--primary);
-border:1px solid var(--secondary);
+background:#2F2F2F;
 border-radius:18px;
 display:flex;
 justify-content:space-between;
 align-items:center;
 }
 
-.brand img{
-height:34px;
-width:auto;
-}
+.brand img{height:28px;}
 
 .navbar nav{
 display:flex;
@@ -50,154 +44,101 @@ gap:24px;
 }
 
 .navbar nav a{
+color:#D9D9D9;
 font-size:13px;
 font-weight:700;
-letter-spacing:1px;
 text-transform:uppercase;
-color:var(--text);
 }
-
-/* HERO */
 
 .hero{
 max-width:1100px;
 margin:auto;
-margin-bottom:24px;
-background:var(--white);
+background:white;
 border-radius:24px;
 padding:32px;
 display:grid;
-grid-template-columns:1fr 360px;
+grid-template-columns:1fr 340px;
 gap:40px;
 align-items:center;
-}
-
-.hero-label{
-font-size:12px;
-font-weight:700;
-letter-spacing:2px;
-display:block;
-margin-bottom:12px;
 }
 
 .hero-name{
 font-family:'Anton',sans-serif;
 font-size:clamp(70px,8vw,120px);
 line-height:.88;
-margin-bottom:10px;
 }
 
 .hero-role{
 font-size:20px;
-margin-bottom:14px;
+margin:12px 0;
 }
 
 .hero-description{
 max-width:520px;
-font-size:16px;
 color:#555;
-margin-bottom:20px;
-}
-
-.hero-buttons{
-display:flex;
-gap:12px;
-}
-
-.primary-btn,
-.secondary-btn{
-padding:12px 20px;
-border-radius:12px;
-font-weight:600;
-}
-
-.primary-btn{
-background:#2F2F2F;
-color:#D9D9D9;
-}
-
-.secondary-btn{
-border:1px solid #D9D9D9;
-background:white;
 }
 
 .hero-frame{
 width:320px;
 height:320px;
-background:var(--primary);
-border:2px solid var(--secondary);
-border-radius:22px;
+background:#D9D9D9;
+border:2px solid #9A9A9A;
 padding:10px;
-margin:auto;
+border-radius:20px;
 }
 
 .hero-image{
 width:100%;
 height:100%;
 object-fit:cover;
-border-radius:16px;
+border-radius:14px;
 }
-
-/* COMMON */
 
 .section-card,
 .social-section{
 max-width:1100px;
 margin:24px auto;
 background:white;
-border-radius:24px;
 padding:28px;
+border-radius:24px;
 }
 
 .section-header{
 display:flex;
+gap:12px;
 align-items:center;
-gap:14px;
 margin-bottom:24px;
 }
 
 .section-header h2{
-font-family:'Anton',sans-serif;
+font-family:'Anton';
 font-size:42px;
 }
 
-/* CONNECT */
-
 .connect-wrapper{
 display:flex;
-justify-content:space-between;
+justify-content:center;
 align-items:center;
-gap:50px;
+gap:80px;
+max-width:900px;
+margin:0 auto;
 }
 
 .social-box{
 display:grid;
-grid-template-columns:repeat(3,80px);
+grid-template-columns:repeat(2,80px);
 gap:14px;
 }
 
 .social-box a{
 width:80px;
 height:80px;
+background:#D9D9D9;
+border-radius:18px;
 display:flex;
 align-items:center;
 justify-content:center;
-background:var(--primary);
-border-radius:18px;
 font-size:28px;
-transition:.2s;
-}
-
-.social-box a:hover{
-background:#2F2F2F;
-color:#D9D9D9;
-}
-
-.connect-info{
-display:flex;
-align-items:center;
-gap:30px;
-flex:1;
 }
 
 .connect-line{
@@ -206,142 +147,29 @@ height:220px;
 background:#2F2F2F;
 }
 
-.connect-links{
-display:flex;
-flex-direction:column;
-gap:10px;
-}
-
-.connect-links h3{
-font-family:'Anton',sans-serif;
-font-size:28px;
-}
-
 .connect-links a{
+display:block;
+padding:12px 16px;
 background:#2F2F2F;
 color:#D9D9D9;
-padding:12px 16px;
 border-radius:12px;
+margin-bottom:10px;
 }
 
-/* PROJECTS */
-
-.projects-grid{
+.projects-grid,
+.toolkit-grid{
 display:grid;
 grid-template-columns:repeat(2,1fr);
 gap:18px;
 }
 
-.project-card{
-background:#fafafa;
-border:1px solid #ececec;
-border-radius:20px;
-overflow:hidden;
-}
-
-.project-preview{padding:12px;}
-
-.project-image{
-width:100%;
-height:180px;
-object-fit:cover;
-border-radius:14px;
-}
-
-.nft-preview{
-height:180px;
-display:flex;
-justify-content:center;
-align-items:center;
-background:#2F2F2F;
-}
-
-.nft-center{
-display:flex;
-flex-direction:column;
-align-items:center;
-gap:8px;
-}
-
-.nft-center h4{
-font-family:'Anton';
-font-size:32px;
-color:white;
-}
-
-.nft-center span{
-padding:8px 12px;
-background:rgba(255,255,255,.08);
-border-radius:999px;
-font-size:11px;
-color:white;
-}
-
-.project-content{padding:18px;}
-
-.project-content h3{
-font-family:'Anton';
-font-size:28px;
-margin-bottom:8px;
-}
-
-/* TOOLKIT */
-
-.toolkit-grid{
-display:grid;
-grid-template-columns:repeat(3,1fr);
-gap:18px;
-}
-
+.project-card,
 .tool-card{
 background:#F5F5F5;
 border:1px solid #D9D9D9;
 border-radius:20px;
-padding:20px;
+padding:18px;
 }
-
-.tool-card h3{
-font-family:'Anton';
-font-size:26px;
-margin-bottom:10px;
-}
-
-.tool-card p{
-font-size:14px;
-line-height:1.8;
-color:#555;
-margin-bottom:16px;
-}
-
-.tags{
-display:flex;
-flex-wrap:wrap;
-gap:10px;
-}
-
-.tags span{
-padding:9px 14px;
-background:#D9D9D9;
-border:1px solid #9A9A9A;
-border-radius:999px;
-font-size:12px;
-font-weight:600;
-}
-
-/* ABOUT */
-
-.about-content{
-max-width:760px;
-}
-
-.about-content p{
-font-size:16px;
-line-height:1.9;
-color:#555;
-margin-bottom:18px;
-}
-
-/* CONTACT */
 
 .contact-form{
 display:flex;
@@ -355,12 +183,6 @@ max-width:700px;
 padding:14px;
 border:1px solid #ddd;
 border-radius:12px;
-font-family:inherit;
-}
-
-.contact-form textarea{
-height:180px;
-resize:none;
 }
 
 .contact-form button{
@@ -370,26 +192,16 @@ border:none;
 background:#2F2F2F;
 color:#D9D9D9;
 border-radius:12px;
-font-weight:700;
 }
-
-/* FOOTER */
 
 footer{
 max-width:1100px;
 margin:24px auto;
-background:white;
 padding:24px;
+background:white;
 border-radius:24px;
 text-align:center;
 }
-
-.footer-inner h3{
-font-family:'Anton';
-font-size:30px;
-}
-
-/* MOBILE */
 
 @media(max-width:900px){
 
@@ -397,18 +209,18 @@ font-size:30px;
 grid-template-columns:1fr;
 }
 
-.projects-grid,
-.toolkit-grid{
-grid-template-columns:1fr;
-}
-
 .connect-wrapper{
 flex-direction:column;
-align-items:flex-start;
+gap:30px;
 }
 
 .connect-line{
 display:none;
+}
+
+.projects-grid,
+.toolkit-grid{
+grid-template-columns:1fr;
 }
 
 .hero-frame{
@@ -419,4 +231,5 @@ height:auto;
 .hero-image{
 aspect-ratio:1/1;
 }
+
 }
