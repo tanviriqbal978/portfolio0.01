@@ -2,37 +2,32 @@
    SMOOTH SCROLL
 ========================= */
 
-document
-.querySelectorAll('a[href^="#"]')
-.forEach(anchor => {
+document.querySelectorAll('a[href^="#"]').forEach(link => {
 
-anchor.addEventListener("click", function(e){
+    link.addEventListener("click", e => {
 
-e.preventDefault();
+        e.preventDefault();
 
-const target =
-document.querySelector(
-this.getAttribute("href")
-);
+        const target = document.querySelector(
+            link.getAttribute("href")
+        );
 
-if(target){
+        if (target) {
 
-target.scrollIntoView({
+            target.scrollIntoView({
+                behavior: "smooth",
+                block: "start"
+            });
 
-behavior:"smooth",
-block:"start"
+        }
 
-});
-
-}
-
-});
+    });
 
 });
 
 
 /* =========================
-   ACTIVE NAVBAR LINK
+   ACTIVE NAV LINK
 ========================= */
 
 const sections =
@@ -41,53 +36,52 @@ document.querySelectorAll("section[id]");
 const navLinks =
 document.querySelectorAll(".navbar nav a");
 
-window.addEventListener("scroll",()=>{
+window.addEventListener("scroll", () => {
 
-let current = "";
+    let current = "";
 
-sections.forEach(section=>{
+    sections.forEach(section => {
 
-const sectionTop =
-section.offsetTop - 180;
+        const sectionTop =
+        section.offsetTop - 150;
 
-const sectionHeight =
-section.offsetHeight;
+        const sectionHeight =
+        section.offsetHeight;
 
-if(
+        if (
 
-window.scrollY >= sectionTop &&
-window.scrollY <
-sectionTop + sectionHeight
+            window.scrollY >= sectionTop &&
+            window.scrollY < sectionTop + sectionHeight
 
-){
+        ) {
 
-current =
-section.getAttribute("id");
+            current =
+            section.getAttribute("id");
 
-}
+        }
 
-});
+    });
 
-navLinks.forEach(link=>{
+    navLinks.forEach(link => {
 
-link.classList.remove(
-"active-link"
-);
+        link.classList.remove(
+            "active-link"
+        );
 
-if(
+        if (
 
-link.getAttribute("href")
-=== `#${current}`
+            link.getAttribute("href")
+            === `#${current}`
 
-){
+        ) {
 
-link.classList.add(
-"active-link"
-);
+            link.classList.add(
+                "active-link"
+            );
 
-}
+        }
 
-});
+    });
 
 });
 
@@ -97,39 +91,38 @@ link.classList.add(
 ========================= */
 
 const form =
-document.querySelector(
-".contact-form"
-);
+document.querySelector(".contact-form");
 
-if(form){
+if (form) {
 
-form.addEventListener(
-"submit",
-(e)=>{
+    form.addEventListener(
+        "submit",
+        e => {
 
-e.preventDefault();
+            e.preventDefault();
 
-const button =
-form.querySelector("button");
+            const btn =
+            form.querySelector("button");
 
-const oldText =
-button.innerText;
+            const oldText =
+            btn.innerText;
 
-button.innerText =
-"Message Sent ✓";
+            btn.innerText =
+            "Message Sent ✓";
 
-button.disabled = true;
+            btn.disabled = true;
 
-setTimeout(()=>{
+            setTimeout(() => {
 
-button.innerText =
-oldText;
+                btn.innerText =
+                oldText;
 
-button.disabled = false;
+                btn.disabled = false;
 
-},2500);
+            }, 2500);
 
-});
+        }
+    );
 
 }
 
@@ -187,6 +180,5 @@ Graphic Designer
 
 100+ Protocol Campaigns
 40+ Blockchain Networks
-Active Since 2022
 
 `);
