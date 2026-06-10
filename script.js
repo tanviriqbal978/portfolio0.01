@@ -1,276 +1,187 @@
-/* ==========================================
+/* ==================================
    TANVIR IQBAL PORTFOLIO
    SCRIPT.JS
-========================================== */
-
-/* -----------------------------
-   HERO TITLE REVEAL
------------------------------ */
-
-window.addEventListener("load", () => {
-
-  const titleLines =
-    document.querySelectorAll(".hero-title span");
-
-  titleLines.forEach((line, index) => {
-
-    line.style.opacity = "0";
-    line.style.transform = "translateY(80px)";
-
-    setTimeout(() => {
-
-      line.style.transition =
-        "all 0.8s cubic-bezier(.22,.61,.36,1)";
-
-      line.style.opacity = "1";
-      line.style.transform =
-        "translateY(0px)";
-
-    }, index * 150);
-
-  });
-
-});
-
-
-/* -----------------------------
-   SCROLL REVEAL
------------------------------ */
-
-const observer =
-new IntersectionObserver((entries)=>{
-
-entries.forEach(entry=>{
-
-if(entry.isIntersecting){
-
-entry.target.classList.add("show");
-
-}
-
-});
-
-},{
-threshold:0.15
-});
-
-document.querySelectorAll(
-".about-card,.projects-header,.project-card,.stat-card,.contact-card"
-).forEach(el=>{
-
-el.classList.add("hidden");
-observer.observe(el);
-
-});
-
-
-/* -----------------------------
-   COUNTER ANIMATION
------------------------------ */
-
-const statNumbers =
-document.querySelectorAll(".stat-card h2");
-
-const statObserver =
-new IntersectionObserver((entries)=>{
-
-entries.forEach(entry=>{
-
-if(!entry.isIntersecting) return;
-
-const el = entry.target;
-
-const text =
-el.textContent;
-
-if(text.includes("+")){
-
-const target =
-parseInt(text);
-
-let current = 0;
-
-const step =
-target / 60;
-
-function update(){
-
-current += step;
-
-if(current < target){
-
-el.textContent =
-Math.floor(current) + "+";
-
-requestAnimationFrame(update);
-
-}else{
-
-el.textContent =
-target + "+";
-
-}
-
-}
-
-update();
-
-}
-
-statObserver.unobserve(el);
-
-});
-
-},{
-threshold:0.5
-});
-
-statNumbers.forEach(item=>{
-statObserver.observe(item);
-});
-
-
-/* -----------------------------
-   HERO IMAGE PARALLAX
------------------------------ */
-
-const hero =
-document.querySelector(".hero");
-
-const image =
-document.querySelector(".hero-image");
-
-if(hero && image){
-
-hero.addEventListener("mousemove",(e)=>{
-
-const rect =
-hero.getBoundingClientRect();
-
-const x =
-e.clientX - rect.left;
-
-const y =
-e.clientY - rect.top;
-
-const rotateY =
-((x / rect.width)-0.5)*10;
-
-const rotateX =
-((y / rect.height)-0.5)*-10;
-
-image.style.transform = `
-scale(1.05)
-rotateX(${rotateX}deg)
-rotateY(${rotateY}deg)
-`;
-
-});
-
-hero.addEventListener("mouseleave",()=>{
-
-image.style.transform =
-"scale(1)";
-
-});
-
-}
-
-
-/* -----------------------------
-   PROJECT HOVER EFFECT
------------------------------ */
+================================== */
+
+/* -----------------------
+   SMOOTH SCROLL
+----------------------- */
 
 document
-.querySelectorAll(".project-card")
-.forEach(card=>{
+.querySelectorAll('a[href^="#"]')
+.forEach(link => {
 
-card.addEventListener(
-"mousemove",
-(e)=>{
+    link.addEventListener("click", e => {
 
-const rect =
-card.getBoundingClientRect();
+        e.preventDefault();
 
-const x =
-e.clientX - rect.left;
+        const target =
+        document.querySelector(
+            link.getAttribute("href")
+        );
 
-const y =
-e.clientY - rect.top;
+        if(target){
 
-const rotateY =
-((x/rect.width)-0.5)*8;
+            target.scrollIntoView({
+                behavior:"smooth",
+                block:"start"
+            });
 
-const rotateX =
-((y/rect.height)-0.5)*-8;
+        }
 
-card.style.transform =
-`perspective(1000px)
-rotateX(${rotateX}deg)
-rotateY(${rotateY}deg)
-translateY(-10px)`;
-
-});
-
-card.addEventListener(
-"mouseleave",
-()=>{
-
-card.style.transform =
-"translateY(0px)";
-
-});
+    });
 
 });
 
 
-/* -----------------------------
-   CURSOR GLOW
------------------------------ */
+/* -----------------------
+   ACTIVE NAV LINK
+----------------------- */
 
-const glow =
-document.createElement("div");
-
-glow.classList.add(
-"cursor-glow"
+const sections =
+document.querySelectorAll(
+"section[id]"
 );
 
-document.body.appendChild(glow);
-
-Object.assign(
-glow.style,
-{
-position:"fixed",
-width:"220px",
-height:"220px",
-borderRadius:"50%",
-background:
-"rgba(255,255,255,.25)",
-filter:"blur(80px)",
-pointerEvents:"none",
-zIndex:"9999",
-transform:
-"translate(-50%,-50%)"
-}
+const navLinks =
+document.querySelectorAll(
+".navbar nav a"
 );
 
 window.addEventListener(
-"mousemove",
-(e)=>{
+"scroll",
+() => {
 
-glow.style.left =
-e.clientX + "px";
+    let current = "";
 
-glow.style.top =
-e.clientY + "px";
+    sections.forEach(section => {
 
-}
+        const sectionTop =
+        section.offsetTop - 150;
+
+        const sectionHeight =
+        section.offsetHeight;
+
+        if(
+            window.scrollY >= sectionTop &&
+            window.scrollY <
+            sectionTop + sectionHeight
+        ){
+
+            current =
+            section.getAttribute("id");
+
+        }
+
+    });
+
+    navLinks.forEach(link => {
+
+        link.classList.remove(
+        "active-link"
+        );
+
+        if(
+        link.getAttribute("href") ===
+        `#${current}`
+        ){
+
+            link.classList.add(
+            "active-link"
+            );
+
+        }
+
+    });
+
+});
+
+
+/* -----------------------
+   REVEAL ON SCROLL
+----------------------- */
+
+const revealElements =
+document.querySelectorAll(
+".section-card,.project-card,.tool-card,.mini-stat"
 );
 
+const revealObserver =
+new IntersectionObserver(
 
-/* -----------------------------
+(entries)=>{
+
+    entries.forEach(entry=>{
+
+        if(entry.isIntersecting){
+
+            entry.target.classList.add(
+            "revealed"
+            );
+
+        }
+
+    });
+
+},
+
+{
+threshold:.1
+}
+
+);
+
+revealElements.forEach(el=>{
+
+    el.classList.add(
+    "hidden-reveal"
+    );
+
+    revealObserver.observe(el);
+
+});
+
+
+/* -----------------------
+   CONTACT FORM
+----------------------- */
+
+const form =
+document.querySelector(
+".contact-form"
+);
+
+if(form){
+
+form.addEventListener(
+"submit",
+function(e){
+
+    e.preventDefault();
+
+    const button =
+    form.querySelector(
+    "button"
+    );
+
+    button.innerText =
+    "Message Ready ✓";
+
+    setTimeout(()=>{
+
+        button.innerText =
+        "Send Message";
+
+    },2500);
+
+});
+
+}
+
+
+/* -----------------------
    TICKER DUPLICATE
------------------------------ */
+----------------------- */
 
 const ticker =
 document.querySelector(
@@ -285,86 +196,103 @@ ticker.innerHTML;
 }
 
 
-/* -----------------------------
-   SMOOTH SCROLL
------------------------------ */
+/* -----------------------
+   CURRENT YEAR
+----------------------- */
 
-document
-.querySelectorAll(
-'a[href^="#"]'
-)
-.forEach(anchor=>{
+const footer =
+document.querySelector("footer p");
 
-anchor.addEventListener(
-"click",
-function(e){
+if(footer){
 
-e.preventDefault();
-
-const target =
-document.querySelector(
-this.getAttribute("href")
-);
-
-if(target){
-
-target.scrollIntoView({
-
-behavior:"smooth"
-
-});
+footer.innerHTML =
+`© ${new Date().getFullYear()} Tanvir Mohammad Iqbal`;
 
 }
 
-});
 
-});
-
-
-/* -----------------------------
-   ADD CSS FOR REVEAL
------------------------------ */
+/* -----------------------
+   CSS HELPERS
+----------------------- */
 
 const style =
-document.createElement("style");
+document.createElement(
+"style"
+);
 
 style.innerHTML = `
 
-.hidden{
+.hidden-reveal{
+
 opacity:0;
-transform:translateY(60px);
+
+transform:
+translateY(30px);
+
 transition:
-all .8s ease;
+all .6s ease;
+
 }
 
-.show{
+.revealed{
+
 opacity:1;
-transform:translateY(0);
+
+transform:
+translateY(0);
+
+}
+
+.active-link{
+
+font-weight:700;
+
+position:relative;
+
+}
+
+.active-link::after{
+
+content:'';
+
+position:absolute;
+
+left:0;
+bottom:-6px;
+
+width:100%;
+height:2px;
+
+background:#111;
+
 }
 
 `;
 
-document.head.appendChild(style);
+document.head.appendChild(
+style
+);
 
 
-/* -----------------------------
+/* -----------------------
    CONSOLE SIGNATURE
------------------------------ */
+----------------------- */
 
 console.log(`
 
-━━━━━━━━━━━━━━━━━━━━━━━━━━
+━━━━━━━━━━━━━━━━━━━━━━
 
 Tanvir Mohammad Iqbal
 
 Web3 Researcher
 On-chain Builder
 Content Creator
+Graphic Designer
 
 100+ Protocol Campaigns
 40+ Blockchain Networks
-3+ Years in Web3
+Active Since 2022
 
-━━━━━━━━━━━━━━━━━━━━━━━━━━
+━━━━━━━━━━━━━━━━━━━━━━
 
-
+`);
