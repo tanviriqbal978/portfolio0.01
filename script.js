@@ -27,7 +27,7 @@ document.querySelectorAll('a[href^="#"]').forEach(link => {
 
 
 /* =========================
-   ACTIVE NAV LINK
+   ACTIVE NAVBAR LINK
 ========================= */
 
 const sections =
@@ -51,7 +51,8 @@ window.addEventListener("scroll", () => {
         if (
 
             window.scrollY >= sectionTop &&
-            window.scrollY < sectionTop + sectionHeight
+            window.scrollY <
+            sectionTop + sectionHeight
 
         ) {
 
@@ -87,11 +88,47 @@ window.addEventListener("scroll", () => {
 
 
 /* =========================
+   PROJECT CARD HOVER
+========================= */
+
+const cards =
+document.querySelectorAll(
+".project-card"
+);
+
+cards.forEach(card => {
+
+    card.addEventListener(
+        "mouseenter",
+        () => {
+
+            card.style.transform =
+            "translateY(-6px)";
+
+        }
+    );
+
+    card.addEventListener(
+        "mouseleave",
+        () => {
+
+            card.style.transform =
+            "translateY(0px)";
+
+        }
+    );
+
+});
+
+
+/* =========================
    CONTACT FORM
 ========================= */
 
 const form =
-document.querySelector(".contact-form");
+document.querySelector(
+".contact-form"
+);
 
 if (form) {
 
@@ -101,23 +138,25 @@ if (form) {
 
             e.preventDefault();
 
-            const btn =
-            form.querySelector("button");
+            const button =
+            form.querySelector(
+                "button"
+            );
 
             const oldText =
-            btn.innerText;
+            button.innerText;
 
-            btn.innerText =
+            button.innerText =
             "Message Sent ✓";
 
-            btn.disabled = true;
+            button.disabled = true;
 
             setTimeout(() => {
 
-                btn.innerText =
+                button.innerText =
                 oldText;
 
-                btn.disabled = false;
+                button.disabled = false;
 
             }, 2500);
 
@@ -154,7 +193,7 @@ bottom:-6px;
 width:100%;
 height:2px;
 
-background:#2F2F2F;
+background:#D9D9D9;
 
 border-radius:999px;
 
@@ -180,5 +219,6 @@ Graphic Designer
 
 100+ Protocol Campaigns
 40+ Blockchain Networks
+3+ Years In Web3
 
 `);
