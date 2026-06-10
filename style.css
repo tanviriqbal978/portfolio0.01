@@ -328,3 +328,145 @@ font-size:28px;
 margin-bottom:8px;
 
 }
+/* ========================= */
+/* ABOUT */
+/* ========================= */
+
+.about-content{
+
+max-width:760px;
+
+}
+
+.about-content p{
+
+font-size:16px;
+
+line-height:1.9;
+
+color:#555;
+
+}
+/* ========================= */
+/* CONTACT */
+/* ========================= */
+
+.contact-form{
+
+display:flex;
+
+flex-direction:column;
+
+gap:14px;
+
+max-width:700px;
+
+}
+
+.contact-form input,
+.contact-form textarea{
+
+padding:14px;
+
+border:1px solid #ddd;
+
+border-radius:12px;
+
+font-family:'Inter';
+
+}
+
+.contact-form textarea{
+
+height:180px;
+
+resize:none;
+
+}
+
+.contact-form button{
+
+width:220px;
+
+padding:14px;
+
+border:none;
+
+background:#2F2F2F;
+
+color:white;
+
+border-radius:12px;
+
+font-weight:700;
+
+cursor:pointer;
+
+}
+/* ========================= */
+/* FOOTER */
+/* ========================= */
+
+footer{
+
+max-width:1100px;
+
+margin:24px auto;
+
+padding:24px;
+
+background:white;
+
+border-radius:24px;
+
+text-align:center;
+
+}
+
+.footer-inner h3{
+
+font-family:'Anton';
+
+font-size:30px;
+
+margin-bottom:10px;
+
+}
+/* ========================= */
+/* MOBILE */
+/* ========================= */
+
+@media(max-width:900px){
+
+.hero{
+grid-template-columns:1fr;
+}
+
+.projects-grid{
+grid-template-columns:1fr;
+}
+
+.toolkit-grid{
+grid-template-columns:1fr;
+}
+
+.hero-frame{
+width:100%;
+height:auto;
+}
+
+.hero-image{
+aspect-ratio:1/1;
+}
+
+.social-box{
+grid-template-columns:
+repeat(3,1fr);
+width:100%;
+}
+
+.social-box a{
+width:100%;
+}
+
+}
