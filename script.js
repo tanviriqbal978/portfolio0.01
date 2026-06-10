@@ -32,7 +32,7 @@ block:"start"
 
 
 /* =========================
-   ACTIVE NAV LINK
+   ACTIVE NAVBAR LINK
 ========================= */
 
 const sections =
@@ -48,7 +48,7 @@ let current = "";
 sections.forEach(section=>{
 
 const sectionTop =
-section.offsetTop - 150;
+section.offsetTop - 180;
 
 const sectionHeight =
 section.offsetHeight;
@@ -93,55 +93,6 @@ link.classList.add(
 
 
 /* =========================
-   SIMPLE REVEAL
-========================= */
-
-const revealItems =
-document.querySelectorAll(
-
-".hero,\
-.social-section,\
-.section-card,\
-.stats-section,\
-footer"
-
-);
-
-const observer =
-new IntersectionObserver(
-
-(entries)=>{
-
-entries.forEach(entry=>{
-
-if(entry.isIntersecting){
-
-entry.target.classList.add(
-"show"
-);
-
-}
-
-});
-
-},
-
-{
-threshold:.08
-}
-
-);
-
-revealItems.forEach(item=>{
-
-item.classList.add("hidden");
-
-observer.observe(item);
-
-});
-
-
-/* =========================
    CONTACT FORM
 ========================= */
 
@@ -161,13 +112,20 @@ e.preventDefault();
 const button =
 form.querySelector("button");
 
+const oldText =
+button.innerText;
+
 button.innerText =
 "Message Sent ✓";
+
+button.disabled = true;
 
 setTimeout(()=>{
 
 button.innerText =
-"Send Message";
+oldText;
+
+button.disabled = false;
 
 },2500);
 
@@ -177,34 +135,13 @@ button.innerText =
 
 
 /* =========================
-   REVEAL STYLES
+   ACTIVE LINK STYLE
 ========================= */
 
 const style =
 document.createElement("style");
 
 style.innerHTML = `
-
-.hidden{
-
-opacity:0;
-
-transform:
-translateY(20px);
-
-transition:
-all .6s ease;
-
-}
-
-.show{
-
-opacity:1;
-
-transform:
-translateY(0);
-
-}
 
 .active-link{
 
@@ -250,5 +187,6 @@ Graphic Designer
 
 100+ Protocol Campaigns
 40+ Blockchain Networks
+Active Since 2022
 
 `);
